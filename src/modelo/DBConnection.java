@@ -276,4 +276,25 @@ public class DBConnection {
 
 		return rs;
 	}
+	
+	public ResultSet getDatosEmpleados() throws SQLException {
+		ResultSet rs = null;
+		String query = "SELECT e.id, e.nombre, e.apellido1, e.apellido2, e.telefono, e.DNI, e.idDep, e.salario, \n" + 
+				"d.id, d.nombre, d.idJefeDep, d.descripcion, \n" + 
+				"u.id, u.nick, u.password, u.idEmpleado, u.correo\n" + 
+				"FROM empleados e join departamentos d on e.idDep = d.id join usuario u on e.id = idEmpleado";
+
+		Statement stmt;
+
+		try {
+			conn = getConexion();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return rs;
+	}
 }

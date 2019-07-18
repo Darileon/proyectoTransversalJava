@@ -24,6 +24,7 @@ public class Modelo extends Applet {
 	private List<Empleado> empleados;
 	private List<Telefono> telefonos;
 	private List<Correo> correos;
+	private List<DatosEmpleado> datosEmpleado;
 
     public Boolean getLoginExistente(String login) {
     	loginExistente = false;    	
@@ -253,6 +254,26 @@ public class Modelo extends Applet {
 		return correos;
 	}
 
+	
+	public List<DatosEmpleado> getDatosEmpleados() {
+		DBConnection dbConnection;
+		dbConnection = new DBConnection("dleong", "Temp3000$$");
+		
+		datosEmpleado = new ArrayList<>();
+		
+		try {
+			ResultSet rs = dbConnection.getDatosEmpleados();
+			while(rs.next()) {
+				datosEmpleado.add(rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getString("telefono"), rs.getString("DNI"),
+						rs.getString("descripcion"), rs.getString("nick"), rs.getString("correo"), rs.getDouble("salario"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return datosEmpleado;
+	}
 }
 
 
